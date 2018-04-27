@@ -1,6 +1,7 @@
 #!/bin/bash
 
 #Attempt to make Django migrations against the database
+python3 manage.py makemigrations
 python3 manage.py migrate
 
 #If the return code isn't 0, there was an error (the database probably was not ready).
