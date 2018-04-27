@@ -6,7 +6,7 @@ services:
     volumes:
       - /data/wellmans:/var/lib/postgresql/data
   web:
-    image: mciecior/wellmans_django
+    image: cait/wellmans_django
     command: ["/docker-entrypoint.sh"]
     ports:
       - "8000:80"
