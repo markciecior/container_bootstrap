@@ -4,13 +4,13 @@
 
 (1) <i>Create a directory for the persistent database</i><br/>
 I've chosen to store the data within /data
-<pre>sudo mkdir -p /data/wellmans/</pre>
+<pre>sudo mkdir -p /data/_customer_name_/</pre>
 
 (2) <i>Create a directory for the application data</i><br/>
 I've chosen to store the app under /app
 <pre>cd /app
-mkdir wellmans
-cd wellmans/
+mkdir _customer_name_
+cd _customer_name_/
 </pre>
 
 (3) <i>Pull in the container bootstrap code</i><br/>
@@ -23,7 +23,7 @@ This will copy in the Python code used to run the website
 
 (5) <i>Create the Docker images</i><br/>
 The application code will live in one container, the database in another.  We can pull a generic postgres database container from Docker Hub, but we'll build the application image ourselves.
-<pre>docker build -t cait/wellmans_django .</pre>
+<pre>docker build -t cait/_customer_name_django .</pre>
 
 (6) <i>Set the host as a Swarm manager</i><br/>
 This is only done once per host, and has likely been done already
@@ -31,7 +31,7 @@ This is only done once per host, and has likely been done already
 
 (7) <i>Create a stack of services using the docker-compose YAML file</i><br/>
 This YAML file defines what services constitute our application stack.  We're using one DB server and one web/app server.
-<pre>stack deploy -c docker-compose.yml wellmans</pre>
+<pre>stack deploy -c docker-compose.yml _customer_name</pre>
 
 <h2>Additional Info</h2>
 
