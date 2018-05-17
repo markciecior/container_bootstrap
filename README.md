@@ -19,7 +19,7 @@ This will copy in the necessary files to create a Docker image
 
 (4) <i>Pull in the application code</i><br/>
 This will copy in the Python code used to run the website
-<pre>git clone 'REPO_NAME' code/guest_portal</pre>
+<pre>git clone 'REPO_NAME' code/_APPNAME_</pre>
 
 (5) <i>Create the Docker images</i><br/>
 The application code will live in one container, the database in another.  We can pull a generic postgres database container from Docker Hub, but we'll build the application image ourselves.
