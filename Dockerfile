@@ -9,7 +9,7 @@ MAINTAINER Carrier Access IT
 
 # Set env variables used in this Dockerfile (add a unique prefix, such as DOCKYARD)
 # Local directory with project source
-ENV DOCKYARD_SRC=code/guest_portal
+ENV DOCKYARD_SRC=code/cwopp
 # Directory in container for all project files
 ENV DOCKYARD_SRVHOME=/srv
 # Directory in container for project source files
@@ -39,6 +39,7 @@ EXPOSE 80
 
 # Copy entrypoint script into the image
 WORKDIR $DOCKYARD_SRVPROJ
+COPY ./config.py .
 COPY ./docker-entrypoint.sh /
 COPY ./django_nginx.conf /etc/nginx/sites-available/
 COPY ./nginx.conf /etc/nginx/

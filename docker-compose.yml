@@ -4,11 +4,13 @@ services:
   db:
     image: postgres:10.3-alpine
     volumes:
-      - /data/wellmans:/var/lib/postgresql/data
+      - /data/cwopp:/var/lib/postgresql/data
   web:
-    image: cait/wellmans_django
+    image: cait/cwopp_django
     command: ["/docker-entrypoint.sh"]
+    volumes:
+      - /log/meraki_monitor:/srv/logs
     ports:
-      - "8000:80"
+      - "8001:80"
     depends_on:
       - db

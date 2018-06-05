@@ -15,26 +15,26 @@ fi
 
 #Creating the Django superuser (for Admin portal access) requires entering a password interactively.
 #This will not work when spinning up a dynamic container, so we do this instead and run the background code directly.
-echo "from django.contrib.auth.models import User; User.objects.filter(email='admin@example.com').delete(); User.objects.create_superuser('admin', 'admin@example.com', 'Admin123')" | python3 manage.py shell
 python3 manage.py collectstatic --clear --noinput
 python3 manage.py collectstatic --noinput
 
 
-touch /srv/logs/gunicorn.log
-touch /srv/logs/access.log
 chmod +w /srv/logs/*.log
 
 #Nginx won't run until it can put its pid file in this directory
 mkdir -p /run/nginx/
 
+#Start cron daemon
+exec /usr/sbin/crond -f &
+
 #Gunicorn is the WSGI server that calls the Django python code
 echo Starting Gunicorn
-exec gunicorn guest_portal.wsgi:application \
-	--bind unix:/srv/code/django_app.sock \
-	--workers 3 \
-	--log-level=info \
-	--log-file=/srv/logs/gunicorn.log \
-	--access-logfile=/srv/logs/access.log &
+exec gunicorn cwopp.wsgi:application \
+        --bind unix:/srv/code/django_app.sock \
+        --workers 3 \
+        --log-level=info \
+        --log-file=/srv/logs/gunicorn-error.log \
+        --access-logfile=/srv/logs/gunicorn-access.log &
 
 #Nginx is the web server that serves the static content directly, and sends the dynamic requests to Gunicorn
 echo Starting nginx
